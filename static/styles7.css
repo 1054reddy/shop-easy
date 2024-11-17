@@ -1,0 +1,137 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background: url("./pics/intro1.jpg") no-repeat center center/cover;
+    background-size: cover;
+}
+
+/* Header */
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul {
+    list-style-type: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #f0c040;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Categories Section */
+.categories {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.categories h1 {
+    font-size: 36px;
+    color: #fff;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.category-item {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+
+/* Categories page specific styles */
+.categories-page .product-item img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 600px; /* Adjust the max-height as needed */
+    object-fit: cover; /* Ensures the image doesn't stretch or distort */
+}
+
+.category-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.category-item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 2px solid #f0c040;
+    transition: transform 0.3s;
+}
+
+.category-item img:hover {
+    transform: scale(1.1);
+}
+
+.category-item h2 {
+    font-size: 22px;
+    margin: 15px 0;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    header nav ul li {
+        margin-right: 10px;
+    }
+
+    .category-item img {
+        height: 150px;
+    }
+
+    .category-item h2 {
+        font-size: 18px;
+    }
+}

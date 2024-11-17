@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Fashion Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles8.css') }}">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('categories_page') }}">Categories</a></li>
+                <li><a href="{{ url_for('cart_page') }}">Cart</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Product Details Section -->
+    <section class="product-details">
+        <h1>{{ product.name }}</h1>
+
+        <!-- Product Information -->
+        <div class="product-info">
+            <!-- Product Image -->
+            <img 
+                src="{{ url_for('static', filename='images/' + product.name | lower | replace(' ', '-') | replace("'", '') + '.jpg') }}" 
+                alt="{{ product.name }}">
+
+            <!-- Product Description -->
+            <div class="product-description">
+                <p>{{ product.description }}</p>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
+                <p><strong>Available Sizes:</strong> 
+                    {% for size in sizes %}
+                        {{ size['size'] }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </p>
+
+                <!-- Add to Cart Form -->
+                <form id="add-to-cart-form" action="{{ url_for('add_to_cart') }}" method="POST">
+                    <input type="hidden" name="product_id" value="{{ product['product_id'] }}">
+                    <label for="size"><strong>Select Size:</strong></label>
+                    <select name="size" id="size">
+                        {% for size in sizes %}
+                            <option value="{{ size['size'] }}">{{ size['size'] }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

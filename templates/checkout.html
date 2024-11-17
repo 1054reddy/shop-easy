@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Fashion Website</title>
+    <<link rel="stylesheet" href="{{ url_for('static', filename='styles3.css') }}">
+</head>
+<body>
+
+    <!-- Header with navigation links -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('categories_page') }}">Categories</a></li>
+                <li><a href="{{ url_for('cart_page') }}">Cart</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products">
+        </div>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="checkout">
+        <h1>Checkout</h1>
+        <div id="order-summary">
+            <!-- Order summary will be dynamically injected here -->
+        </div>
+        <h2 id="total-amount">Total Amount: $0.00</h2>
+        <form id="billing-form" action="{{ url_for('checkout') }}" method="POST">
+            <h3>Billing Information</h3>
+            <input type="text" placeholder="Full Name" required>
+            <input type="text" placeholder="Address" required>
+            <input type="text" placeholder="City" required>
+            <input type="text" placeholder="State" required>
+            <input type="text" placeholder="Zip Code" required>
+            <input type="email" placeholder="Email" required>
+            <button type="submit" class="btn">Confirm Order</button>
+        </form>
+    </section>
+
+    <script>
+        // Retrieve cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to display order summary and calculate total amount
+        function displayOrderSummary() {
+            const orderSummaryDiv = document.getElementById('order-summary');
+            orderSummaryDiv.innerHTML = ''; // Clear existing items
+            let totalAmount = 0;
+
+            if (cart.length === 0) {
+                orderSummaryDiv.innerHTML = '<p>Your cart is empty. Please add items to your cart before checking out.</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'order-item';
+                    itemDiv.innerHTML = `
+                        <p><strong>${item.name}</strong> (Size: ${item.size}) - Price: $${item.price.toFixed(2)} x ${item.quantity}</p>
+                    `;
+                    orderSummaryDiv.appendChild(itemDiv);
+
+                    // Update total amount
+                    totalAmount += item.price * item.quantity;
+                });
+            }
+
+            // Update total amount display
+            document.getElementById('total-amount').innerText = `Total Amount: $${totalAmount.toFixed(2)}`;
+        }
+
+        // Handle billing form submission and order confirmation
+        document.getElementById('billing-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            if (cart.length === 0) {
+                alert('Your cart is empty. Add items to the cart before checking out.');
+                return;
+            }
+
+            // Calculate total amount
+            let totalAmount = 0;
+            cart.forEach(item => {
+                totalAmount += item.price * item.quantity;
+            });
+
+            // Create new order
+            const newOrder = {
+                date: new Date().toLocaleDateString(),
+                total: totalAmount,
+                items: cart
+            };
+
+            // Retrieve existing orders from localStorage or initialize an empty array
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(newOrder);
+
+            // Save updated orders to localStorage
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Clear cart after successful order
+            localStorage.removeItem('cart');
+
+            // Redirect to order confirmation page or show a confirmation message
+            alert('Your order has been placed successfully!');
+
+            // Optionally, redirect to an order confirmation page
+            window.location.href = 'order_confirmation.html'; // Optional
+        });
+
+        // Call function to display order summary on page load
+        displayOrderSummary();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+/* Reuse Header, Search Bar, and Navigation styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.search-bar {
+    margin-left: auto;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Order History Section */
+.order-history {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-history h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.order-list .order-item {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+.order-list .order-item h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.order-list .order-item p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.order-list .order-item .btn {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.order-list .order-item .btn:hover {
+    background-color: #555;
+}

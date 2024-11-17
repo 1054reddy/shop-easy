@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Fashion Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles2.css') }}">
+</head>
+<body>
+
+    <!-- Header with navigation links -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('categories_page') }}">Categories</a></li>
+                <li><a href="{{ url_for('cart_page') }}">Cart</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products">
+        </div>
+    </header>
+
+    <!-- Cart Section -->
+    <body class="cart-page">
+        <section class="cart">
+            <h1>Your Shopping Cart</h1>
+            <div id="cart-items">
+                <!-- Cart items will be dynamically injected here -->
+            </div>
+            <h2 id="total-amount">Total Amount: $0.00</h2>
+            <form action="{{ url_for('checkout') }}" method="POST">
+                <button id="checkout" class="btn" type="submit">Proceed to Checkout</button>
+            </form>
+        </section>
+    </body>
+    <script>
+        // Function to fetch cart items from the server
+        function fetchCartItems() {
+            fetch('/get_cart_items', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    displayCartItems(data.cart_items); // Display the cart items returned by the backend
+                } else {
+                    alert('Error fetching cart items');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    
+        // Function to display cart items dynamically
+        function displayCartItems(cartItems) {
+            const cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = ''; // Clear existing items
+    
+            let totalAmount = 0;
+    
+            if (cartItems.length === 0) {
+                cartItemsDiv.innerHTML = '<p>Your cart is empty.</p>';
+            } else {
+                cartItems.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML = `
+                        <p><strong>${item.name}</strong> (Size: ${item.size})</p>
+                        <p>Price: $${item.price.toFixed(2)} x ${item.quantity}</p>
+                        <input type="number" min="1" value="${item.quantity}" class="quantity-input" data-product-id="${item.product_id}" data-product-size-id="${item.product_size_id}" data-index="${index}">
+                        <button class="remove-btn" data-product-id="${item.product_id}" data-product-size-id="${item.product_size_id}" data-index="${index}">Remove</button>
+                    `;
+                    cartItemsDiv.appendChild(itemDiv);
+    
+                    // Update total amount
+                    totalAmount += item.price * item.quantity;
+                });
+            }
+    
+            // Update total amount display
+            document.getElementById('total-amount').innerText = `Total Amount: $${totalAmount.toFixed(2)}`;
+        }
+    
+        // Function to update the quantity of an item in the cart
+        function updateCartItem(productId, productSizeId, quantity) {
+            fetch('/update_cart_item', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    product_size_id: productSizeId,
+                    quantity: quantity
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    fetchCartItems(); // Refresh the cart after updating
+                } else {
+                    alert('Error updating cart item');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    
+        // Function to remove an item from the cart
+        function removeFromCart(productId, productSizeId) {
+            fetch('/remove_from_cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    product_id: productId,
+                    product_size_id: productSizeId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    fetchCartItems(); // Refresh the cart after removing the item
+                } else {
+                    alert('Error removing item from cart');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    
+        // Event listener for quantity changes
+        document.addEventListener('change', function(e) {
+            if (e.target && e.target.classList.contains('quantity-input')) {
+                const productId = e.target.getAttribute('data-product-id');
+                const productSizeId = e.target.getAttribute('data-product-size-id');
+                const quantity = parseInt(e.target.value);
+    
+                if (quantity >= 0) {
+                    updateCartItem(productId, productSizeId, quantity); // Update the cart item
+                } else {
+                    alert('Quantity must be a positive integer.');
+                }
+            }
+        });
+    
+        // Event listener for remove buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-btn')) {
+                const productId = e.target.getAttribute('data-product-id');
+                const productSizeId = e.target.getAttribute('data-product-size-id');
+                removeFromCart(productId, productSizeId); // Remove item from cart when clicked
+            }
+        });
+    
+        // Call function to fetch and display cart items when the page loads
+        fetchCartItems();
+    </script>
+    
+</body>
+</html>

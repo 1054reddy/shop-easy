@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details - Fashion Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles6.css') }}">
+</head>
+<body>
+
+    <!-- Header with navigation links -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('categories_page') }}">Categories</a></li>
+                <li><a href="{{ url_for('cart_page') }}">Cart</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products">
+        </div>
+    </header>
+
+    <!-- Order Details Section -->
+    <section class="order-details">
+        <h1>Order Details</h1>
+
+        <!-- Shipping Information -->
+        <div class="shipping-info">
+            <h2>Shipping Information</h2>
+            <p><strong>Name:</strong> <span id="customer-name">John Doe</span></p>
+            <p><strong>Address:</strong> <span id="customer-address">123 Fashion St, New York, NY</span></p>
+            <p><strong>Date:</strong> <span id="order-date">2024-09-15</span></p>
+        </div>
+
+        <!-- Itemized List of Products -->
+        <div class="order-items">
+            <h2>Items Purchased</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="order-items">
+                    <!-- Items will be populated dynamically -->
+                </tbody>
+            </table>
+
+            <!-- Total Amount -->
+            <p class="total"><strong>Total: <span id="order-total">$129.97</span></strong></p>
+        </div>
+
+        <!-- Back to Orders Button -->
+        <a href="order_history.html" class="btn">Back to Orders</a>
+    </section>
+
+    <script>
+        // Dummy order data for demonstration
+        const orders = {
+            "123456": {
+                name: "John Doe",
+                address: "123 Fashion St, New York, NY",
+                date: "2024-09-15",
+                items: [
+                    { product: "Fashion T-shirt", quantity: 2, price: "$49.99" },
+                    { product: "Stylish Jeans", quantity: 1, price: "$29.99" }
+                ],
+                total: "$129.97"
+            },
+            "654321": {
+                name: "Jane Smith",
+                address: "456 Trendy Ave, Los Angeles, CA",
+                date: "2024-08-10",
+                items: [
+                    { product: "Summer Dress", quantity: 1, price: "$89.99" }
+                ],
+                total: "$89.99"
+            }
+        };
+
+        // Function to get the order ID from the URL
+        function getOrderID() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('order');
+        }
+
+        // Function to display the order details
+        function displayOrderDetails(orderID) {
+            const order = orders[orderID];
+            if (order) {
+                document.getElementById('customer-name').innerText = order.name;
+                document.getElementById('customer-address').innerText = order.address;
+                document.getElementById('order-date').innerText = order.date;
+
+                // Populate the items
+                const itemsTable = document.getElementById('order-items');
+                itemsTable.innerHTML = ''; // Clear any existing rows
+                order.items.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.product}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.price}</td>
+                    `;
+                    itemsTable.appendChild(row);
+                });
+
+                // Set the total
+                document.getElementById('order-total').innerText = order.total;
+            } else {
+                document.querySelector('h1').innerText = 'Order Not Found';
+                document.querySelector('.order-details').style.display = 'none';
+            }
+        }
+
+        // Get the order ID and display the order details
+        const orderID = getOrderID();
+        displayOrderDetails(orderID);
+    </script>
+
+</body>
+</html>

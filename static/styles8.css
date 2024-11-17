@@ -1,0 +1,146 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header Styles */
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.search-bar {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.search-bar input {
+    padding: 8px;
+    width: 200px;
+}
+
+/* Product Details Section Styles */
+.product-details {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.product-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px; /* Better spacing between image and text */
+    max-width: 800px; /* Limit the overall container width */
+    margin: 0 auto; /* Center the container */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+
+.product-info img {
+    max-width: 100%; /* Ensures it doesn't overflow its container */
+    height: auto; /* Maintains aspect ratio */
+    width: 300px; /* Sets a fixed width, can adjust based on design */
+    object-fit: contain; /* Ensures the image fits within the allocated space */
+    margin-right: 20px; /* Keeps space between image and text */
+    border-radius: 5px; /* Optional: adds slight rounding for aesthetics */
+}
+
+
+.product-description {
+    flex: 1;
+}
+
+.product-description p {
+    margin: 10px 0;
+}
+
+#sizes {
+    margin: 10px 0;
+}
+
+.btn {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+/* Reviews Section Styles */
+#reviews {
+    margin-top: 20px;
+}
+
+.review {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+/* Review Form Styles */
+form {
+    margin-top: 20px;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+@media (max-width: 768px) {
+    .product-info {
+        flex-direction: column; /* Stack the image and text vertically */
+        align-items: center;
+    }
+
+    .product-info img {
+        width: 100%; /* Image takes full width on small screens */
+        max-width: 400px; /* Prevents it from being too large */
+    }
+}

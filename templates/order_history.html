@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History - Fashion Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles5.css') }}">
+</head>
+<body>
+
+    <!-- Header with navigation links -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('categories_page') }}">Categories</a></li>
+                <li><a href="{{ url_for('cart_page') }}">Cart</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products">
+        </div>
+    </header>
+
+    <!-- Order History Section -->
+    <section class="order-history">
+        <h1>Your Order History</h1>
+
+        <!-- Order List -->
+        <div id="order-history" class="order-list">
+            <!-- Orders will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <script>
+        // Fetch and display order history from the server
+        async function displayOrderHistory() {
+            const orderHistoryDiv = document.getElementById('order-history');
+    
+            try {
+                const response = await fetch('/api/order-history');
+                const orders = await response.json();
+    
+                if (orders.length === 0) {
+                    orderHistoryDiv.innerHTML = "<p>Your order history is currently empty.</p>";
+                } else {
+                    orderHistoryDiv.innerHTML = ''; // Clear previous content
+    
+                    orders.forEach((order, index) => {
+                        const orderDiv = document.createElement('div');
+                        orderDiv.classList.add('order-item');
+                        orderDiv.innerHTML = `
+                            <h3>Order #${order.order_id}</h3>
+                            <p>Date: ${new Date(order.order_date).toLocaleDateString()}</p>
+                            <p>Total: $${order.total_amount.toFixed(2)}</p>
+                            <button onclick="viewOrderDetails(${order.order_id})">View Details</button>
+                        `;
+                        orderHistoryDiv.appendChild(orderDiv);
+                    });
+                }
+            } catch (error) {
+                orderHistoryDiv.innerHTML = "<p>Error fetching order history.</p>";
+                console.error('Error:', error);
+            }
+        }
+    
+        // Function to view order details (for demonstration purposes)
+        function viewOrderDetails(orderId) {
+            alert(`Viewing details for Order #${orderId}`);
+            // Implement order detail view here if needed
+        }
+    
+        // Call the function to display order history on page load
+        displayOrderHistory();
+    </script>
+    
+</body>
+</html>

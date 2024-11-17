@@ -1,0 +1,166 @@
+/* Reuse Header, Search Bar, and Navigation styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.search-bar {
+    margin-left: auto;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+/* Checkout Section */
+.checkout {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkout h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.checkout .form-group {
+    margin-bottom: 15px;
+}
+
+.checkout .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.checkout .form-group input,
+.checkout .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.order-summary {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.order-summary h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.order-summary p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.order-summary p strong {
+    font-size: 18px;
+    color: #333;
+}
+
+.confirm-order {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.confirm-order:hover {
+    background-color: #555;
+}
+/* Checkout Section Styles */
+.checkout {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout h1 {
+    font-size: 24px;
+}
+
+#order-summary {
+    margin-bottom: 20px;
+}
+
+.order-item {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+#total-amount {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#billing-form {
+    margin-top: 20px;
+}
+
+#billing-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn {
+    background-color: #28a745; /* Bootstrap success color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - E-Fashion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('categories_page') }}">Categories</a></li>
+                <li><a href="{{ url_for('cart_page') }}">Cart</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>
+            </ul>
+            <div>
+                {% if 'user_id' in session %}
+                    <span>Welcome, {{ session['username'] }}!</span>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Login</a> | 
+                    <a href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </div>
+            <form action="{{ url_for('search_products') }}" method="GET">
+                <input type="text" name="query" placeholder="Search for products..." required />
+                <button type="submit">Search</button>
+            </form>            
+        </nav>
+    </header>
+
+    <main>
+        <div class="image-slider">
+            <div class="slider-container">
+                <div class="slider-item" style="background-image: url('../static/img/img1.png');"></div>
+                <div class="slider-item" style="background-image: url('../static/img/img2.png');"></div>
+                <div class="slider-item" style="background-image: url('../static/img/img3.png');"></div>
+                <div class="slider-item" style="background-image: url('../static/img/img4.png');"></div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+
+        <!-- Featured Products Section -->
+        <section class="featured-products">
+            <h2>Featured Products</h2>
+            <div class="product-list">
+                <div class="product-item">
+                    <a href="{{ url_for('product_details', product_id=1) }}">
+                        <img src="{{ url_for('static', filename='images/mens-fashion.jpg') }}" alt="Men's T-Shirt">
+                        <h3>Men's Fashion</h3>
+                        <p>$19.99</p>
+                    </a>
+                </div>
+                <div class="product-item">
+                    <a href="{{ url_for('product_details', product_id=2) }}">
+                        <img src="{{ url_for('static', filename='images/womens-fashion.jpg') }}" alt="Women's Dress">
+                        <h3>Women's Fashion</h3>
+                        <p>$29.99</p>
+                    </a>
+                </div>
+                <div class="product-item">
+                    <a href="{{ url_for('product_details', product_id=3) }}">
+                        <img src="{{ url_for('static', filename='images/kids-fashion1.jpg') }}" alt="Kids' Shoes">
+                        <h3>Kid's Fashion</h3>
+                        <p>$24.99</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 E-Fashion. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-item');
+        const totalSlides = slides.length;
+
+        function moveSlide(direction) {
+            currentSlide += direction;
+
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+
+            updateSlidePosition();
+        }
+
+        function updateSlidePosition() {
+            const sliderContainer = document.querySelector('.slider-container');
+            const offset = -currentSlide * 100;  // Move the container by 100% of slide width
+            sliderContainer.style.transform = `translateX(${offset}%)`;
+        }
+
+        // Auto-slide every 3 seconds (3000ms)
+        setInterval(() => {
+            moveSlide(1);  // Automatically move to the next slide every 3 seconds
+        }, 1500);
+    </script>
+
+</body>
+</html>

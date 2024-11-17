@@ -1,0 +1,100 @@
+/* Reuse Header, Search Bar, and Navigation styles */
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.search-bar {
+    margin-left: auto;
+}
+
+.search-bar input {
+    padding: 5px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+/* Order Details Section */
+.order-details {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-details h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.shipping-info,
+.order-items {
+    margin-bottom: 20px;
+}
+
+.shipping-info h2,
+.order-items h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.shipping-info p,
+.order-items p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.order-items table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.order-items table th,
+.order-items table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.total {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #333;
+}
+
+/* Back to Orders Button */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    background-color: #555;
+}

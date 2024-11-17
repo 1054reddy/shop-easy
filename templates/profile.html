@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Fashion Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles4.css') }}">
+</head>
+<body>
+
+    <!-- Header with navigation links -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('products_page') }}">Products</a></li>
+                <li><a href="{{ url_for('categories_page') }}">Categories</a></li>
+                <li><a href="{{ url_for('cart_page') }}">Cart</a></li>
+                <li><a href="{{ url_for('profile_page') }}">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products">
+        </div>
+    </header>
+
+    <!-- Profile Section -->
+    <section class="profile">
+            <h1>Your Profile</h1>
+            
+            <!-- User Information -->
+            <div class="user-info">
+                <p><strong>Full Name:</strong> {{ user.name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Mobile Number:</strong> {{ user.mobile_no }}</p>
+            </div>
+        
+            <!-- Action Links -->
+            <div class="profile-actions">
+                <a href="{{ url_for('order_history_page') }}" class="btn">View Order History</a>
+                <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+            </div>
+        </section>
+        
+
+</body>
+</html>
